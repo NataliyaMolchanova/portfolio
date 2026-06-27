@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интеграционная модель системных архетипов</title>
+    <style>
+        :root {
+            --c1: #10b981;
+            --c2: #3b82f6;
+            --c3: #f59e0b;
+            --c4: #ef4444;
+            --c5: #8b5cf6;
+            --c1-bg: #d1fae5;
+            --c2-bg: #dbeafe;
+            --c3-bg: #fef3c7;
+            --c4-bg: #fee2e2;
+            --c5-bg: #ede9fe;
+            --c1-text: #065f46;
+            --c2-text: #1e40af;
+            --c3-text: #92400e;
+            --c4-text: #991b1b;
+            --c5-text: #5b21b6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* ─── HEADER ─── */
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1a3560 50%, #0f2a4a 100%);
+            color: white;
+            padding: 64px 40px 52px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(59,130,246,0.15) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 30%, rgba(139,92,246,0.1) 0%, transparent 50%);
+        }
+
+        header > * { position: relative; z-index: 1; }
+
+        .header-eyebrow {
+            display: inline-block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #475569;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 14px;
+            line-height: 1.1;
+        }
+
+        header h1 span {
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-sub {
+            font-size: 16px;
+            color: #64748b;
+            max-width: 560px;
+            margin: 0 auto 24px;
+            line-height: 1.6;
+        }
+
+        .header-meta {
+            font-size: 12px;
+            color: #334155;
+            letter-spacing: 0.5px;
+        }
+
+        /* ─── KEY IDEA ─── */
+        .key-idea {
+            max-width: 1000px;  /* v2: 860 → 1000 */
+            margin: -24px auto 0;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .key-idea-inner {
+            background: white;
+            border-radius: 16px;
+            padding: 28px 32px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            border-left: 5px solid #3b82f6;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .key-idea-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .key-idea-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #3b82f6;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .key-idea-text {
+            font-size: 16px;
+            color: #1e293b;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* ─── SECTIONS ─── */
+        .section {
+            max-width: 1400px;  /* v2: 1120 → 1400 */
+            margin: 48px auto 0;
+            padding: 0 24px;
+        }
+
+        .section-heading {
+            font-size: 17px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 28px;
+            font-weight: 600;
+        }
+
+        /* ─── CURVE ─── */
+        .curve-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 32px 20px 24px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+        }
+
+        .curve-wrapper svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ─── PHASE CARDS ─── */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+            margin: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 22px 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: default;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.11);
+        }
+
+        .card-stripe {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .card.c1 .card-stripe { background: linear-gradient(90deg, #10b981, #34d399); }
+        .card.c2 .card-stripe { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+        .card.c3 .card-stripe { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        .card.c4 .card-stripe { background: linear-gradient(90deg, #ef4444, #f87171); }
+        .card.c5 .card-stripe { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+
+        .card-phase {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-top: 6px;
+            margin-bottom: 4px;
+        }
+        .c1 .card-phase { color: var(--c1); }
+        .c2 .card-phase { color: var(--c2); }
+        .c3 .card-phase { color: var(--c3); }
+        .c4 .card-phase { color: var(--c4); }
+        .c5 .card-phase { color: var(--c5); }
+
+        .card-emoji { font-size: 26px; margin-bottom: 4px; display: block; }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .tags { margin-bottom: 14px; display: flex; flex-wrap: wrap; gap: 4px; }
+
+        .tag {
+            font-size: 10.5px;
+            padding: 3px 9px;
+            border-radius: 20px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        .c1 .tag { background: var(--c1-bg); color: var(--c1-text); }
+        .c2 .tag { background: var(--c2-bg); color: var(--c2-text); }
+        .c3 .tag { background: var(--c3-bg); color: var(--c3-text); }
+        .c4 .tag { background: var(--c4-bg); color: var(--c4-text); }
+        .c5 .tag { background: var(--c5-bg); color: var(--c5-text); }
+
+        .micro-label {
+            font-size: 9.5px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #64748b;
+            font-weight: 700;
+            margin-bottom: 5px;
+            margin-top: 12px;
+        }
+
+        .signals { list-style: none; padding: 0; }
+        .signals li {
+            font-size: 12px;
+            color: #334155;
+            padding: 3px 0 3px 14px;
+            position: relative;
+            line-height: 1.4;
+        }
+        .signals li::before {
+            content: '·';
+            position: absolute;
+            left: 4px;
+            color: #64748b;
+            font-size: 14px;
+            top: 1px;
+        }
+
+        .leverage-box {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 12px;
+            color: #334155;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        .trap-line {
+            margin-top: 10px;
+            font-size: 12.5px;
+            color: #64748b;
+            font-style: italic;
+            padding-left: 10px;
+            border-left: 2px solid #e2e8f0;
+            line-height: 1.4;
+        }
+
+        /* ─── ARCHETYPE SUB-BLOCKS ─── */
+        .sa-block {
+            padding: 10px 10px 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .c1 .sa-block { background: rgba(16,185,129,0.06); border-left: 3px solid rgba(16,185,129,0.35); }
+        .c2 .sa-block { background: rgba(59,130,246,0.06); border-left: 3px solid rgba(59,130,246,0.35); }
+        .c3 .sa-block { background: rgba(245,158,11,0.06); border-left: 3px solid rgba(245,158,11,0.35); }
+        .c4 .sa-block { background: rgba(239,68,68,0.06); border-left: 3px solid rgba(239,68,68,0.35); }
+        .c5 .sa-block { background: rgba(139,92,246,0.06); border-left: 3px solid rgba(139,92,246,0.35); }
+
+        .sa-name {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+        }
+        .c1 .sa-name { color: #059669; }
+        .c2 .sa-name { color: #2563eb; }
+        .c3 .sa-name { color: #d97706; }
+        .c4 .sa-name { color: #dc2626; }
+        .c5 .sa-name { color: #7c3aed; }
+
+        .sa-mech {
+            font-size: 12.5px;
+            color: #475569;
+            font-style: italic;
+            line-height: 1.45;
+            margin-bottom: 6px;
+        }
+
+        .sa-signals { list-style: none; padding: 0; }
+        .sa-signals li {
+            font-size: 12.5px;
+            color: #334155;
+            padding: 2px 0 2px 13px;
+            position: relative;
+            line-height: 1.35;
+        }
+        .sa-signals li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #64748b;
+            font-size: 10px;
+            top: 3px;
+        }
+
+        .card-divider {
+            height: 1px;
+            background: #f1f5f9;
+            margin: 4px 0 12px;
+        }
+
+        /* ─── INSIGHTS ─── */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .insight-card {
+            background: white;
+            border-radius: 14px;
+            padding: 28px 24px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .insight-num {
+            font-size: 48px;
+            font-weight: 900;
+            color: #f1f5f9;
+            line-height: 1;
+            margin-bottom: 12px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .insight-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .insight-body {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 12.5px;
+            color: #64748b;
+            letter-spacing: 0.3px;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 960px) {
+            .cards-grid, .insights-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 580px) {
+            .cards-grid, .insights-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 26px; }
+            .key-idea-inner { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <h1>Интеграционная модель<br><span>системных архетипов</span></h1>
+    <p class="header-sub">Как 9 архетипов проявляются в жизненном цикле системы — от рождения до трансформации (или гибели)</p>
+</header>
+
+<!-- KEY IDEA -->
+<div class="key-idea">
+    <div class="key-idea-inner">
+        <div class="key-idea-icon">💡</div>
+        <div>
+            <div class="key-idea-label">Ключевая идея</div>
+            <p class="key-idea-text">Архетипы — не набор отдельных диагнозов. Это <strong>фазы одного процесса</strong>. Каждая фаза содержит механизмы, которые порождают следующую. Зная архетип, ты знаешь не только «где я» — но и «что придёт следующим» и «где рычаг».</p>
+        </div>
+    </div>
+</div>
+
+<!-- LIFECYCLE CURVE -->
+<div class="section">
+    <div class="section-heading">Жизненный цикл системы</div>
+    <div class="curve-wrapper">
+        <svg viewBox="0 0 1000 396" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif">
+
+            <defs>
+                <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%"   stop-color="#10b981"/>
+                    <stop offset="22%"  stop-color="#3b82f6"/>
+                    <stop offset="50%"  stop-color="#f59e0b"/>
+                    <stop offset="75%"  stop-color="#ef4444"/>
+                    <stop offset="100%" stop-color="#8b5cf6"/>
+                </linearGradient>
+            </defs>
+
+            <!--
+              Расчёт: band=188, gap=15, итого: 5×188 + 4×15 = 940 + 60 = 1000 ✓
+              Зоны: x=0, 203, 406, 609, 812 — каждая шириной 188
+              Центры: 94, 297, 500, 703, 906
+              Разделители в серединах 15px зазоров: 195.5, 398.5, 601.5, 804.5
+            -->
+            <rect x="0"   y="10" width="188" height="290" fill="#10b981" opacity="0.07" rx="4"/>
+            <rect x="203" y="10" width="188" height="290" fill="#3b82f6" opacity="0.07" rx="4"/>
+            <rect x="406" y="10" width="188" height="290" fill="#f59e0b" opacity="0.07" rx="4"/>
+            <rect x="609" y="10" width="188" height="290" fill="#ef4444" opacity="0.07" rx="4"/>
+            <rect x="812" y="10" width="188" height="290" fill="#8b5cf6" opacity="0.07" rx="4"/>
+
+            <line x1="0" y1="300" x2="1000" y2="300" stroke="#e2e8f0" stroke-width="1"/>
+            <text x="6" y="24" font-size="10" fill="#64748b">▲ Эффективность системы</text>
+
+            <line x1="196" y1="10" x2="196" y2="300" stroke="#e8edf2" stroke-width="1" stroke-dasharray="5,4"/>
+            <line x1="399" y1="10" x2="399" y2="300" stroke="#e8edf2" stroke-width="1" stroke-dasharray="5,4"/>
+            <line x1="602" y1="10" x2="602" y2="300" stroke="#e8edf2" stroke-width="1" stroke-dasharray="5,4"/>
+            <line x1="805" y1="10" x2="805" y2="300" stroke="#e8edf2" stroke-width="1" stroke-dasharray="5,4"/>
+
+            <!-- Ветка Гибель -->
+            <path d="M 832,288 C 866,293 914,297 963,298"
+                  stroke="#6b7280" stroke-width="2.5" fill="none" stroke-dasharray="7,5" opacity="0.8"/>
+
+            <!-- Ветка Трансформация -->
+            <path d="M 832,288 C 866,262 914,145 963,90"
+                  stroke="#8b5cf6" stroke-width="3" fill="none" stroke-dasharray="7,5"/>
+
+            <!--
+              G1-гладкость: ctrl_out = отражение ctrl_in относительно точки сочленения
+              (172,105): ctrl_in=(92,155)  → ctrl_out=(252,55)
+              (406,48):  ctrl_in=(322,44)  → ctrl_out=(490,52)
+              (609,72):  ctrl_in=(540,60)  → базовый ctrl_out=(678,84), масштаб 1.5× → (713,90) — то же направление, плавнее вход в кризис
+              Запуск: C1=(80,285) — почти горизонтальный старт (нарастание снежного кома)
+            -->
+            <path d="M 0,290 C 80,285 92,155 172,105
+                          C 252,55 322,44 406,48
+                          C 490,52 540,60 609,72
+                          C 713,90 758,248 832,288"
+                  stroke="url(#lineGrad)" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+            <!-- Точки на кривой в характерных точках каждой фазы -->
+            <circle cx="94"  cy="200" r="7" fill="#10b981" stroke="white" stroke-width="2.5"/>
+            <circle cx="297" cy="55"  r="7" fill="#3b82f6" stroke="white" stroke-width="2.5"/>
+            <circle cx="500" cy="57"  r="7" fill="#f59e0b" stroke="white" stroke-width="2.5"/>
+            <circle cx="703" cy="135" r="7" fill="#ef4444" stroke="white" stroke-width="2.5"/>
+            <circle cx="832" cy="288" r="7" fill="#8b5cf6" stroke="white" stroke-width="2.5"/>
+
+            <text x="820" y="255" font-size="11" fill="#8b5cf6" text-anchor="middle" font-weight="600">⬆ или ⬇</text>
+
+            <text x="960" y="86"  font-size="12" fill="#8b5cf6" font-weight="700" text-anchor="end">Трансформация</text>
+            <text x="960" y="100" font-size="11" fill="#8b5cf6" text-anchor="end">→ новый цикл</text>
+            <text x="960" y="292" font-size="12" fill="#6b7280" font-weight="700" text-anchor="end">Гибель</text>
+
+            <!-- v2: нижние плашки height=56 (было 50), font-size подписей=11 (было 9.5) -->
+            <rect x="0"   y="310" width="188" height="56" fill="#d1fae5" rx="8"/>
+            <text x="94"  y="330" font-size="13" font-weight="700" fill="#065f46" text-anchor="middle">🚀 Запуск</text>
+            <text x="94"  y="347" font-size="11" fill="#065f46" text-anchor="middle">Снежный ком</text>
+            <text x="94"  y="361" font-size="11" fill="#065f46" text-anchor="middle">Самореализ. пророчество</text>
+
+            <rect x="203" y="310" width="188" height="56" fill="#dbeafe" rx="8"/>
+            <text x="297" y="330" font-size="13" font-weight="700" fill="#1e40af" text-anchor="middle">📈 Рост</text>
+            <text x="297" y="347" font-size="11" fill="#1e40af" text-anchor="middle">Пределы роста</text>
+            <text x="297" y="361" font-size="11" fill="#1e40af" text-anchor="middle">Успех ради успеха</text>
+
+            <rect x="406" y="310" width="188" height="56" fill="#fef3c7" rx="8"/>
+            <text x="500" y="330" font-size="13" font-weight="700" fill="#92400e" text-anchor="middle">📊 Плато</text>
+            <text x="500" y="347" font-size="11" fill="#92400e" text-anchor="middle">Ограничение успехом</text>
+            <text x="500" y="361" font-size="11" fill="#92400e" text-anchor="middle">Дрейф целей</text>
+
+            <rect x="609" y="310" width="188" height="56" fill="#fee2e2" rx="8"/>
+            <text x="703" y="330" font-size="13" font-weight="700" fill="#991b1b" text-anchor="middle">⚠️ Кризис</text>
+            <text x="703" y="347" font-size="11" fill="#991b1b" text-anchor="middle">Краткосрочные решения</text>
+            <text x="703" y="361" font-size="11" fill="#991b1b" text-anchor="middle">Эскалация</text>
+
+            <rect x="812" y="310" width="188" height="56" fill="#ede9fe" rx="8"/>
+            <text x="906" y="330" font-size="13" font-weight="700" fill="#5b21b6" text-anchor="middle">⚔️ Гибель / Трансформация</text>
+            <text x="906" y="347" font-size="11" fill="#5b21b6" text-anchor="middle">Трагедия систем</text>
+            <text x="906" y="361" font-size="11" fill="#5b21b6" text-anchor="middle">коллективного использования</text>
+        </svg>
+    </div>
+</div>
+
+<!-- PHASE CARDS -->
+<div class="section" style="margin-top: 32px;">
+    <div class="section-heading">Разбор по фазам</div>
+    <div class="cards-grid">
+
+        <!-- Card 1 -->
+        <div class="card c1">
+            <div class="card-stripe"></div>
+            <div class="card-phase">Фаза 1</div>
+            <span class="card-emoji">🚀</span>
+            <div class="card-title">Запуск</div>
+
+            <div class="sa-block">
+                <div class="sa-name">Снежный ком</div>
+                <p class="sa-mech">Каждый успех притягивает ресурсы и усиливает следующий — петля раскручивается сама по себе. <strong>Работает в обе стороны:</strong> каждая неудача тоже самоусиливается — потери накапливаются, ресурсы уходят, ком катится вниз.</p>
+                <ul class="sa-signals">
+                    <li>Результат растёт быстрее, чем вложенные усилия</li>
+                    <li>Процесс нарастает без дополнительных толчков — в любую сторону</li>
+                </ul>
+            </div>
+
+            <div class="sa-block">
+                <div class="sa-name">Самореализующееся пророчество</div>
+                <p class="sa-mech">Убеждение формирует поведение, которое делает это убеждение реальным — ещё до появления объективных оснований. <strong>Работает в обе стороны:</strong> вера в провал так же самосбывается.</p>
+                <ul class="sa-signals">
+                    <li>Тренер верит в ученика — тот становится лучшим; тренер ждёт провала — ученик проваливается</li>
+                    <li>Энергия или апатия команды самоподдерживается</li>
+                </ul>
+            </div>
+
+            <div class="card-divider"></div>
+            <div class="micro-label">Точка влияния</div>
+            <div class="leverage-box">Закладывай стандарты сейчас — когда ком набрал скорость, остановить его сложнее. Следи за тем, во что верят люди: именно это станет реальностью.</div>
+            <div class="trap-line">Эйфория маскирует закладку будущих ограничений</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card c2">
+            <div class="card-stripe"></div>
+            <div class="card-phase">Фаза 2</div>
+            <span class="card-emoji">📈</span>
+            <div class="card-title">Рост</div>
+
+            <div class="sa-block">
+                <div class="sa-name">Пределы роста</div>
+                <p class="sa-mech">Усиливающая петля роста наталкивается на скрытое ограничение из внешней системы — результат падает, хотя усилий больше</p>
+                <ul class="sa-signals">
+                    <li>Одни и те же действия дают всё меньший эффект</li>
+                    <li>«Мы стараемся, но что-то не идёт»</li>
+                </ul>
+            </div>
+
+            <div class="sa-block">
+                <div class="sa-name">Успех ради успеха</div>
+                <p class="sa-mech">Ресурсы перетекают к «любимым» направлениям из-за бессознательных предпочтений, а не анализа — другие деградируют молча</p>
+                <ul class="sa-signals">
+                    <li>Одни области расцветают, другие стагнируют — при прочих равных</li>
+                    <li>Распределение ресурсов логически объяснить сложно</li>
+                </ul>
+            </div>
+
+            <div class="card-divider"></div>
+            <div class="micro-label">Точка влияния</div>
+            <div class="leverage-box">Найди скрытое ограничение раньше, чем оно тебя найдёт. Проверь: по каким реальным критериям распределяются ресурсы?</div>
+            <div class="trap-line">Кажется, что надо просто «работать интенсивнее»</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card c3">
+            <div class="card-stripe"></div>
+            <div class="card-phase">Фаза 3</div>
+            <span class="card-emoji">📊</span>
+            <div class="card-title">Плато</div>
+
+            <div class="sa-block">
+                <div class="sa-name">Ограничение успехом</div>
+                <p class="sa-mech">Прошлые победы блокируют поиск новых решений — единственная стратегия успеха применяется везде, хотя среда изменилась</p>
+                <ul class="sa-signals">
+                    <li>«Раньше это работало» звучит всё чаще</li>
+                    <li>Масштабирование старого подхода даёт обратный эффект</li>
+                </ul>
+            </div>
+
+            <div class="sa-block">
+                <div class="sa-name">Дрейф целей</div>
+                <p class="sa-mech">Разрыв между желаемым и фактическим давит на стандарт — проще снизить планку, чем её достичь; каждый шаг мал, общее падение — огромно</p>
+                <ul class="sa-signals">
+                    <li>Планы регулярно пересматриваются «под факт»</li>
+                    <li>Нынешняя «норма» год назад была бы неприемлема</li>
+                </ul>
+            </div>
+
+            <div class="card-divider"></div>
+            <div class="micro-label">Точка влияния</div>
+            <div class="leverage-box">Зафиксируй исходные стандарты и сравни с текущими. Что реально изменилось в среде, а что — только твои критерии?</div>
+            <div class="trap-line">Незаметность. Катастрофа видна только ретроспективно</div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card c4">
+            <div class="card-stripe"></div>
+            <div class="card-phase">Фаза 4</div>
+            <span class="card-emoji">⚠️</span>
+            <div class="card-title">Кризис</div>
+
+            <div class="sa-block">
+                <div class="sa-name">Краткосрочные решения</div>
+                <p class="sa-mech">Разовый «пластырь» незаметно становится привычкой — симптом снимается, но способность решить проблему по существу атрофируется</p>
+                <ul class="sa-signals">
+                    <li>«Временные меры» стали постоянными</li>
+                    <li>Одно и то же средство нужно в бо́льших дозах</li>
+                </ul>
+            </div>
+
+            <div class="sa-block">
+                <div class="sa-name">Эскалация</div>
+                <p class="sa-mech">Обе стороны убеждены, что обороняются от агрессора — ресурсы тратятся на борьбу, а не на развитие; «Снежный ком» взаимного истощения</p>
+                <ul class="sa-signals">
+                    <li>Конкуренция там, где её раньше не было</li>
+                    <li>Обе стороны считают себя жертвой</li>
+                </ul>
+            </div>
+
+            <div class="card-divider"></div>
+            <div class="micro-label">Точка влияния</div>
+            <div class="leverage-box">Останови «типичный ресурс» хотя бы локально. Найди: за что реально идёт борьба и действительно ли ресурс ограничен?</div>
+            <div class="trap-line">Срочность блокирует анализ. «Некогда думать — надо тушить»</div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card c5">
+            <div class="card-stripe"></div>
+            <div class="card-phase">Фаза 5</div>
+            <span class="card-emoji">⚔️</span>
+            <div class="card-title">Гибель или Трансформация</div>
+
+            <div class="sa-block">
+                <div class="sa-name">Трагедия систем коллективного использования</div>
+                <p class="sa-mech">Каждый участник действует рационально для себя — но совокупное поведение иррационально для системы; ресурс истощается быстрее, чем кто-то успевает остановиться. <strong>Важно:</strong> архетип может разворачиваться с первой фазы, но становится заметным, когда уже поздно.</p>
+                <ul class="sa-signals">
+                    <li>«Если не я — то другой» — логика каждого участника</li>
+                    <li>«Прежде здесь было здорово» — уже сказанное, не предупреждение</li>
+                    <li>Ресурс деградирует быстрее, чем система успевает отреагировать</li>
+                </ul>
+            </div>
+
+            <div class="card-divider"></div>
+            <div class="micro-label">Точка влияния</div>
+            <div class="leverage-box">Только внешнее управление ресурсом (правила, координация) или смена игры (выход в незанятую нишу) меняет динамику.</div>
+            <div class="trap-line">Рациональность каждого = иррациональность системы. Никто не виноват — все проигрывают</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- WHAT IT GIVES -->
+<div class="section" style="margin-top: 40px;">
+    <div class="section-heading">Что это даёт на практике</div>
+    <div class="insights-grid">
+        <div class="insight-card">
+            <div class="insight-num">01</div>
+            <div class="insight-title">Диагностика без паники</div>
+            <p class="insight-body">Кризис — предсказуемая фаза, а не катастрофа. Называешь архетип — разговор переходит с «кто виноват» на «как устроена система». Тревога падает, появляется направление.</p>
+        </div>
+        <div class="insight-card">
+            <div class="insight-num">02</div>
+            <div class="insight-title">Опережающий сигнал и прогноз</div>
+            <p class="insight-body">Слышишь «раньше это работало» — ты уже на Плато. Видишь начало Эскалации — знаешь, к чему она ведёт без вмешательства. Архетипы разворачиваются предсказуемо.</p>
+        </div>
+        <div class="insight-card">
+            <div class="insight-num">03</div>
+            <div class="insight-title">Выбор точки влияния</div>
+            <p class="insight-body">В каждой фазе есть свой рычаг. Одно и то же действие работает на Запуске и не работает на Кризисе. Знание фазы = знание, куда давить.</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    Н. Молчанова · Системное мышление 2026 · по материалам тренинга А. Герасимова
+</footer>
+
+</body>
+</html>
