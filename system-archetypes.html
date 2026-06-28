@@ -218,13 +218,20 @@
         .c4 .card-phase { color: var(--c4); }
         .c5 .card-phase { color: var(--c5); }
 
-        .card-emoji { font-size: 26px; margin-bottom: 4px; display: block; }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+            margin-bottom: 12px;
+        }
+
+        .card-emoji { font-size: 26px; flex-shrink: 0; }
 
         .card-title {
             font-size: 16px;
             font-weight: 700;
             color: #0f172a;
-            margin-bottom: 12px;
             line-height: 1.2;
         }
 
@@ -354,6 +361,7 @@
             margin-bottom: 14px;
             padding-bottom: 12px;
             border-bottom: 1px solid #f1f5f9;
+            min-height: 76px;
         }
 
         .card-divider {
@@ -361,6 +369,21 @@
             background: #f1f5f9;
             margin: 4px 0 12px;
         }
+
+        .phase-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin: 0 20px 16px;
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+        }
+        .phase-note-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
 
         /* ─── INSIGHTS ─── */
         .insights-grid {
@@ -540,14 +563,20 @@
 <!-- PHASE CARDS -->
 <div class="section" style="margin-top: 32px;">
     <div class="section-heading">Разбор по фазам</div>
+    <div class="phase-note">
+        <span class="phase-note-icon">↕️</span>
+        <span>Расположение архетипов показывает, где они <em>чаще всего появляются впервые</em>. На практике любой архетип может проявиться в любой фазе: снежный ком нарастает и в кризисе, дрейф целей может начаться сразу после запуска.</span>
+    </div>
     <div class="cards-grid">
 
         <!-- Card 1 -->
         <div class="card c1">
             <div class="card-stripe"></div>
             <div class="card-phase">Фаза 1</div>
-            <span class="card-emoji">🚀</span>
-            <div class="card-title">Запуск</div>
+            <div class="card-header">
+                <span class="card-emoji">🚀</span>
+                <div class="card-title">Запуск</div>
+            </div>
 
             <p class="phase-context">Команда собирается, идея захватывает, ресурсы есть — всё кажется возможным. Энергия высокая, ограничений пока не видно.</p>
 
@@ -558,6 +587,10 @@
                     <li>Результат растёт быстрее, чем вложенные усилия</li>
                     <li>Процесс нарастает без дополнительных толчков — в любую сторону</li>
                 </ul>
+                <div class="micro-label">Ловушка</div>
+                <div class="trap-line">Эйфория от роста маскирует закладку будущих ограничений — ком может покатиться вниз так же быстро, как и вверх</div>
+                <div class="micro-label">Точка влияния</div>
+                <div class="leverage-box">Закладывай стандарты сейчас — когда ком набрал скорость, остановить его сложнее.</div>
             </div>
 
             <div class="sa-block">
@@ -567,23 +600,23 @@
                     <li>Тренер верит в ученика — тот становится лучшим; тренер ждёт провала — ученик проваливается</li>
                     <li>Энергия или апатия команды самоподдерживается</li>
                 </ul>
+                <div class="micro-label">Ловушка</div>
+                <div class="trap-line">Убеждение в провале самосбывается так же, как убеждение в успехе — следи, какие установки транслируешь команде</div>
+                <div class="micro-label">Точка влияния</div>
+                <div class="leverage-box">Следи за тем, во что верят люди: именно это станет реальностью.</div>
             </div>
-
-            <div class="card-divider"></div>
-            <div class="micro-label">Ловушка</div>
-            <div class="trap-line">Эйфория маскирует закладку будущих ограничений</div>
-            <div class="micro-label">Точка влияния</div>
-            <div class="leverage-box">Закладывай стандарты сейчас — когда ком набрал скорость, остановить его сложнее. Следи за тем, во что верят люди: именно это станет реальностью.</div>
         </div>
 
         <!-- Card 2 -->
         <div class="card c2">
             <div class="card-stripe"></div>
             <div class="card-phase">Фаза 2</div>
-            <span class="card-emoji">📈</span>
-            <div class="card-title">Рост</div>
+            <div class="card-header">
+                <span class="card-emoji">📈</span>
+                <div class="card-title">Рост</div>
+            </div>
 
-            <p class="phase-context">Система набирает скорость, показатели идут вверх. Но где-то уже формируются невидимые потолки — их пока не замечают, потому что результаты ещё радуют.</p>
+            <p class="phase-context">Система набирает скорость, показатели идут вверх. Но где-то уже формируются невидимые потолки — ещё до того, как их успевают заметить.</p>
 
             <div class="sa-block">
                 <div class="sa-name">Пределы роста</div>
@@ -592,6 +625,10 @@
                     <li>Одни и те же действия дают всё меньший эффект</li>
                     <li>«Мы стараемся, но что-то не идёт»</li>
                 </ul>
+                <div class="micro-label">Ловушка</div>
+                <div class="trap-line">Кажется, что надо просто «работать интенсивнее» — но усилия не снимают ограничение, только ускоряют истощение</div>
+                <div class="micro-label">Точка влияния</div>
+                <div class="leverage-box">Найди скрытое ограничение раньше, чем оно тебя найдёт — именно там рычаг, а не в интенсивности.</div>
             </div>
 
             <div class="sa-block">
@@ -601,23 +638,23 @@
                     <li>Одни области расцветают, другие стагнируют — при прочих равных</li>
                     <li>Распределение ресурсов логически объяснить сложно</li>
                 </ul>
+                <div class="micro-label">Ловушка</div>
+                <div class="trap-line">Перекос выглядит как «разумные приоритеты» — его почти невозможно заметить изнутри</div>
+                <div class="micro-label">Точка влияния</div>
+                <div class="leverage-box">Проверь: по каким реальным критериям распределяются ресурсы — и совпадают ли они с декларируемыми?</div>
             </div>
-
-            <div class="card-divider"></div>
-            <div class="micro-label">Ловушка</div>
-            <div class="trap-line">Кажется, что надо просто «работать интенсивнее»</div>
-            <div class="micro-label">Точка влияния</div>
-            <div class="leverage-box">Найди скрытое ограничение раньше, чем оно тебя найдёт. Проверь: по каким реальным критериям распределяются ресурсы?</div>
         </div>
 
         <!-- Card 3 -->
         <div class="card c3">
             <div class="card-stripe"></div>
             <div class="card-phase">Фаза 3</div>
-            <span class="card-emoji">📊</span>
-            <div class="card-title">Плато</div>
+            <div class="card-header">
+                <span class="card-emoji">📊</span>
+                <div class="card-title">Плато</div>
+            </div>
 
-            <p class="phase-context">Рост замедлился, старые методы перестают работать. Команда старается сильнее — эффект падает. Стандарты незаметно снижаются, чтобы не признавать проблему.</p>
+            <p class="phase-context">Рост замедлился, старые методы перестают работать. Команда старается сильнее — эффект падает. Стандарты незаметно снижаются.</p>
 
             <div class="sa-block">
                 <div class="sa-name">Ограничение успехом</div>
@@ -626,6 +663,10 @@
                     <li>«Раньше это работало» звучит всё чаще</li>
                     <li>Масштабирование старого подхода даёт обратный эффект</li>
                 </ul>
+                <div class="micro-label">Ловушка</div>
+                <div class="trap-line">Прошлый успех создаёт слепое пятно: кажется, что проблема в исполнении, а не в самой стратегии</div>
+                <div class="micro-label">Точка влияния</div>
+                <div class="leverage-box">Спроси: что изменилось в среде с тех пор, как эта стратегия последний раз работала?</div>
             </div>
 
             <div class="sa-block">
@@ -635,23 +676,23 @@
                     <li>Планы регулярно пересматриваются «под факт»</li>
                     <li>Нынешняя «норма» год назад была бы неприемлема</li>
                 </ul>
+                <div class="micro-label">Ловушка</div>
+                <div class="trap-line">Каждое снижение планки кажется разумным компромиссом. Понимание масштаба потерь приходит только ретроспективно</div>
+                <div class="micro-label">Точка влияния</div>
+                <div class="leverage-box">Зафиксируй исходные стандарты и сравни с текущими. Что реально изменилось в среде, а что — только твои критерии?</div>
             </div>
-
-            <div class="card-divider"></div>
-            <div class="micro-label">Ловушка</div>
-            <div class="trap-line">Незаметность. Катастрофа видна только ретроспективно</div>
-            <div class="micro-label">Точка влияния</div>
-            <div class="leverage-box">Зафиксируй исходные стандарты и сравни с текущими. Что реально изменилось в среде, а что — только твои критерии?</div>
         </div>
 
         <!-- Card 4 -->
         <div class="card c4">
             <div class="card-stripe"></div>
             <div class="card-phase">Фаза 4</div>
-            <span class="card-emoji">⚠️</span>
-            <div class="card-title">Кризис</div>
+            <div class="card-header">
+                <span class="card-emoji">⚠️</span>
+                <div class="card-title">Кризис</div>
+            </div>
 
-            <p class="phase-context">Давление нарастает, решения принимаются в режиме пожаротушения. Ресурсы уходят на борьбу с симптомами, а не с причинами. Времени думать нет.</p>
+            <p class="phase-context">Давление нарастает, решения — в режиме пожаротушения. Ресурсы уходят на симптомы, а не на причины. Времени остановиться и подумать нет.</p>
 
             <div class="sa-block">
                 <div class="sa-name">Краткосрочные решения</div>
@@ -660,6 +701,10 @@
                     <li>«Временные меры» стали постоянными</li>
                     <li>Одно и то же средство нужно в бо́льших дозах</li>
                 </ul>
+                <div class="micro-label">Ловушка</div>
+                <div class="trap-line">«Временная мера» никогда не ощущается как постоянная — каждый раз кажется, что это последний раз</div>
+                <div class="micro-label">Точка влияния</div>
+                <div class="leverage-box">Останови пластырь хотя бы локально и посмотри, что произойдёт — симптом или причина?</div>
             </div>
 
             <div class="sa-block">
@@ -669,23 +714,23 @@
                     <li>Конкуренция там, где её раньше не было</li>
                     <li>Обе стороны считают себя жертвой</li>
                 </ul>
+                <div class="micro-label">Ловушка</div>
+                <div class="trap-line">Срочность блокирует анализ. «Некогда думать — надо тушить»</div>
+                <div class="micro-label">Точка влияния</div>
+                <div class="leverage-box">Найди: за что реально идёт борьба и действительно ли ресурс ограничен? Часто борьба идёт за то, чего достаточно для всех.</div>
             </div>
-
-            <div class="card-divider"></div>
-            <div class="micro-label">Ловушка</div>
-            <div class="trap-line">Срочность блокирует анализ. «Некогда думать — надо тушить»</div>
-            <div class="micro-label">Точка влияния</div>
-            <div class="leverage-box">Останови «типичный ресурс» хотя бы локально. Найди: за что реально идёт борьба и действительно ли ресурс ограничен?</div>
         </div>
 
         <!-- Card 5 -->
         <div class="card c5">
             <div class="card-stripe"></div>
             <div class="card-phase">Фаза 5</div>
-            <span class="card-emoji">⚔️</span>
-            <div class="card-title">Гибель или Трансформация</div>
+            <div class="card-header">
+                <span class="card-emoji">⚔️</span>
+                <div class="card-title">Гибель или Трансформация</div>
+            </div>
 
-            <p class="phase-context">Ресурс на пределе. Каждый участник тянет максимум на себя. Система стоит перед развилкой — рухнуть под тяжестью накопленных противоречий или переродиться на новом уровне.</p>
+            <p class="phase-context">Ресурс на пределе. Каждый тянет на себя. Система стоит перед развилкой — рухнуть под тяжестью противоречий или переродиться на новом уровне.</p>
 
             <div class="sa-block">
                 <div class="sa-name">Трагедия систем коллективного использования</div>
@@ -695,13 +740,11 @@
                     <li>«Прежде здесь было здорово» — уже сказанное, не предупреждение</li>
                     <li>Ресурс деградирует быстрее, чем система успевает отреагировать</li>
                 </ul>
+                <div class="micro-label">Ловушка</div>
+                <div class="trap-line">Рациональность каждого = иррациональность системы: то, что выгодно каждому по отдельности, в сумме разрушает то, чем пользуются все. Никто не виноват — все проигрывают</div>
+                <div class="micro-label">Точка влияния</div>
+                <div class="leverage-box">Только внешнее управление ресурсом (правила, координация) или смена игры (выход в незанятую нишу) меняет динамику.</div>
             </div>
-
-            <div class="card-divider"></div>
-            <div class="micro-label">Ловушка</div>
-            <div class="trap-line">Рациональность каждого = иррациональность системы. Никто не виноват — все проигрывают</div>
-            <div class="micro-label">Точка влияния</div>
-            <div class="leverage-box">Только внешнее управление ресурсом (правила, координация) или смена игры (выход в незанятую нишу) меняет динамику.</div>
         </div>
 
     </div>
